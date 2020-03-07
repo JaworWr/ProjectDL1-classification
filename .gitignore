@@ -1,1 +1,6 @@
-
+# ignore PyCharm settings
+.idea
+# ignore image data
+data/**/*.png
+data/**/*.gif
+data/**/*.jpg
