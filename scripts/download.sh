@@ -1,3 +1,7 @@
+#!/bin/bash
+
+set -e
+
 DATA_URL=http://vision.princeton.edu/projects/2010/SUN/SUN397.tar.gz
 path=${1:-data}
 
