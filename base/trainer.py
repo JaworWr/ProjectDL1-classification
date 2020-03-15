@@ -14,5 +14,5 @@ class BaseTrainer:
             self.data["train"],
             validation_data=self.data["valid"],
             callbacks=self.callbacks,
-            **self.config["training"]
+            **self.config.trainer
         )
