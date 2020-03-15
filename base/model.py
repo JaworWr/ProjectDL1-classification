@@ -4,7 +4,7 @@ class BaseModel:
         self.model = None
 
     # save function that saves the checkpoint in the path defined in the config file
-    def save(self, checkpoint_path):
+    def save(self, checkpoint_path: str):
         if self.model is None:
             raise RuntimeError("You have to build the model before saving it.")
 
@@ -13,7 +13,7 @@ class BaseModel:
         print("Model saved")
 
     # load latest checkpoint from the experiment path defined in the config file
-    def load(self, checkpoint_path):
+    def load(self, checkpoint_path: str):
         if self.model is None:
             raise RuntimeError("You have to build the model before loading it.")
 
