@@ -1,8 +1,8 @@
 class BaseTrainer:
-    def __init__(self, model, data, config):
+    def __init__(self, config, model, data):
+        self.config = config
         self.model = model
         self.data = data
-        self.config = config
 
         self.callbacks = []
 
