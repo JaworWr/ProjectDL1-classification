@@ -18,9 +18,8 @@ def main(config_path: str):
 
     devices.device_setup(cfg)
 
-    train_gen = data.ImageDataGenerator(**cfg.data.augmentation)
     print("Loading data...")
-    data_loaders = data.get_data_loaders(train_gen, **cfg.data.loading)
+    data_loaders = data.get_train_valid_loaders(cfg)
 
     classes = {}
     for k in ["model", "trainer"]:

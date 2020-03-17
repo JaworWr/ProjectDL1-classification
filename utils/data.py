@@ -1,23 +1,40 @@
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from os import path
 import pandas as pd
-from typing import Tuple
+from typing import Tuple, Sequence
 
 
 DATA_ROOT = "data"
 
 
-def get_data_loaders(
+def get_train_valid_loaders(config):
+    train_gen = ImageDataGenerator(**config.data.get("augmentation", {}))
+    directory = config.data.get("directory", path.join(DATA_ROOT, "SUN397"))
+    image_shape = tuple(config.data.get("image_shape", (256, 256)))
+
+    return _get_data_loaders(
+        ["train", "valid"],
+        train_gen,
+        ImageDataGenerator(),
+        directory,
+        image_shape,
+        config.data.batch_size
+    )
+
+
+def _get_data_loaders(
+        subsets: Sequence[str],
         train_gen: ImageDataGenerator,
-        test_gen: ImageDataGenerator = None,
-        directory: str = path.join(DATA_ROOT, "SUN397"),
-        image_shape: Tuple[int, int] = (256, 256),
-        **kwargs):
+        test_gen: ImageDataGenerator,
+        directory: str,
+        image_shape: Tuple[int, int],
+        batch_size: int
+    ):
     loaders = {}
     if test_gen is None:
         test_gen = ImageDataGenerator()
 
-    for subset in ["train", "valid", "test"]:
+    for subset in subsets:
         df = pd.read_csv(path.join(DATA_ROOT, f"sun_{subset}.csv")).set_index("id")
         data_gen = train_gen if subset == "train" else test_gen
         loaders[subset] = data_gen.flow_from_dataframe(
@@ -26,7 +43,8 @@ def get_data_loaders(
             x_col="path",
             y_col="label",
             target_size=image_shape,
-            **kwargs
+            batch_size=batch_size,
+            shuffle=(subset == "train")
         )
 
     if not all(loaders.values()):
