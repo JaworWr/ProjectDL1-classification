@@ -24,3 +24,4 @@ training:
   learining_rate: 1e-3
   metrics:
     - accuracy
+  tensorboard_enabled: true
