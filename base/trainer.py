@@ -11,10 +11,13 @@ class BaseTrainer:
 
         self.callbacks = []
 
+        if config.training.get("tensorboard_enabled", False):
+            self._init_tensorboard_callback(**self.config.training)
+
     def init_callbacks(self):
         pass
 
-    def init_tensorboard_callback(self, experiment_name: str = None, directory: str = "experiments/logs"):
+    def _init_tensorboard_callback(self, experiment_name: str = None, directory: str = "experiments/logs"):
         if experiment_name is None:
             experiment_name = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         tensorboard_callback = callbacks.TensorBoard(log_dir=os.path.join(directory, experiment_name))
@@ -25,5 +28,5 @@ class BaseTrainer:
             self.data["train"],
             validation_data=self.data["valid"],
             callbacks=self.callbacks,
-            **self.config.trainer
+            epochs=self.config.training.epochs
         )
