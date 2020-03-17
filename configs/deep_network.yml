@@ -1,0 +1,26 @@
+model:
+  module_name: models.deep_network
+  class_name: DeepModel
+  dropout: 0.2
+  hidden_dims:
+    - 4096
+    - 1024
+
+trainer:
+  module_name: base.trainer
+  class_name: BaseTrainer
+
+devices:
+  memory_growth: True
+  log_device_placement: False
+
+data:
+  # augmentation:
+  batch_size: 64
+  image_size: [128, 128]
+
+training:
+  epochs: 10
+  learining_rate: 1e-3
+  metrics:
+    - accuracy
