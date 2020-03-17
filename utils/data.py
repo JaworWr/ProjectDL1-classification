@@ -10,14 +10,13 @@ DATA_ROOT = "data"
 def get_train_valid_loaders(config):
     train_gen = ImageDataGenerator(**config.data.get("augmentation", {}))
     directory = config.data.get("directory", path.join(DATA_ROOT, "SUN397"))
-    image_shape = tuple(config.data.get("image_shape", (256, 256)))
 
     return _get_data_loaders(
         ["train", "valid"],
         train_gen,
         ImageDataGenerator(),
         directory,
-        image_shape,
+        config.data.image_shape,
         config.data.batch_size
     )
 
