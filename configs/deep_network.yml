@@ -17,11 +17,11 @@ devices:
 data:
   # augmentation:
   batch_size: 64
-  image_size: [128, 128]
+  image_shape: [128, 128]
 
 training:
   epochs: 10
-  learining_rate: 1e-3
+  learning_rate: 1e-3
   metrics:
     - accuracy
   tensorboard_enabled: true
