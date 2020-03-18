@@ -7,6 +7,14 @@ from typing import Tuple, Sequence
 DATA_ROOT = "data"
 
 
+def process_config(cfg):
+    image_shape = cfg.data.get("image_shape", (256, 256))
+    image_shape = tuple(image_shape)
+    cfg.data.image_shape = image_shape
+    if "input_shape" not in cfg.model:
+        cfg.model.input_shape = (*image_shape, 3)
+
+
 def get_train_valid_loaders(config):
     train_gen = ImageDataGenerator(**config.data.get("augmentation", {}))
     directory = config.data.get("directory", path.join(DATA_ROOT, "SUN397"))

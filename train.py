@@ -15,6 +15,7 @@ def get_args():
 
 def main(config_path: str):
     cfg = config.get_config(config_path)
+    data.process_config(cfg)
 
     devices.device_setup(cfg)
 
