@@ -32,9 +32,15 @@ def main(config_path: str):
     model = classes["model"](cfg)
     model.build_model()
 
+    if "load_checkpoint" in cfg.model:
+        model.load(cfg.model.load_checkpoint)
+
     print("Training...")
     trainer = classes["trainer"](cfg, model, data_loaders)
     trainer.train()
+
+    if "save_checkpoint" in cfg.model:
+        model.save(cfg.model.save_checkpoint)
 
 
 if __name__ == '__main__':

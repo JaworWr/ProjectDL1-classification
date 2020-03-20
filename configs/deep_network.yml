@@ -5,6 +5,8 @@ model:
   hidden_dims:
     - 4096
     - 1024
+#  load_checkpoint: path
+#  save_checkpoint: path
 
 trainer:
   module_name: base.trainer
