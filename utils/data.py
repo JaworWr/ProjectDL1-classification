@@ -18,6 +18,9 @@ def process_config(cfg):
 def get_train_valid_loaders(config):
     train_gen = ImageDataGenerator(**config.data.get("augmentation", {}))
     directory = config.data.get("directory", path.join(DATA_ROOT, "SUN397"))
+    subset_dir = config.data.get("subset_directory", DATA_ROOT)
+    subset_prefix = config.data.get("subset_prefix", "sun")
+    subset_pattern = path.join(subset_dir, subset_prefix + "_{}.csv")
 
     return _get_data_loaders(
         ["train", "valid"],
@@ -25,19 +28,25 @@ def get_train_valid_loaders(config):
         ImageDataGenerator(),
         directory,
         config.data.image_shape,
-        config.data.batch_size
+        config.data.batch_size,
+        subset_pattern
     )
 
 
 def get_test_loader(config):
     directory = config.data.get("directory", path.join(DATA_ROOT, "SUN397"))
+    subset_dir = config.data.get("subset_directory", DATA_ROOT)
+    subset_prefix = config.data.get("subset_prefix", "sun")
+    subset_pattern = path.join(subset_dir, subset_prefix + "_{}.csv")
+
     loaders = _get_data_loaders(
         ["test"],
         None,
         ImageDataGenerator(),
         directory,
         config.data.image_shape,
-        config.data.batch_size
+        config.data.batch_size,
+        subset_pattern
     )
     return loaders["test"]
 
@@ -48,14 +57,15 @@ def _get_data_loaders(
         test_gen: ImageDataGenerator,
         directory: str,
         image_shape: Tuple[int, int],
-        batch_size: int
+        batch_size: int,
+        subset_pattern: str
     ):
     loaders = {}
     if test_gen is None:
         test_gen = ImageDataGenerator()
 
     for subset in subsets:
-        df = pd.read_csv(path.join(DATA_ROOT, f"sun_{subset}.csv")).set_index("id")
+        df = pd.read_csv(subset_pattern.format(subset)).set_index("id")
         data_gen = train_gen if subset == "train" else test_gen
         loaders[subset] = data_gen.flow_from_dataframe(
             dataframe=df,

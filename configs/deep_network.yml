@@ -20,6 +20,9 @@ data:
   # augmentation:
   batch_size: 64
   image_shape: [128, 128]
+#  directory:
+# subset_directory:
+# subset_prefix:
 
 training:
   epochs: 10
