@@ -29,6 +29,19 @@ def get_train_valid_loaders(config):
     )
 
 
+def get_test_loader(config):
+    directory = config.data.get("directory", path.join(DATA_ROOT, "SUN397"))
+    loaders = _get_data_loaders(
+        ["test"],
+        None,
+        ImageDataGenerator(),
+        directory,
+        config.data.image_shape,
+        config.data.batch_size
+    )
+    return loaders["test"]
+
+
 def _get_data_loaders(
         subsets: Sequence[str],
         train_gen: ImageDataGenerator,

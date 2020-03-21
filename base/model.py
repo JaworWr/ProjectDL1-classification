@@ -29,3 +29,11 @@ class BaseModel:
             raise RuntimeError("You have to build the model before training it.")
 
         self.model.fit(*args, **kwargs)
+
+
+    def evaluate(self, *args, **kwargs):
+        if self.model is None:
+            raise RuntimeError("You have to build the model before evaluating it.")
+
+        result = self.model.evaluate(*args, **kwargs)
+        return list(result)
