@@ -3,7 +3,7 @@ import argparse
 
 
 def get_args():
-    parser = argparse.ArgumentParser(description="Run model training.")
+    parser = argparse.ArgumentParser(description="Run model evaluation.")
     parser.add_argument(
         dest="config_path",
         type=str,
