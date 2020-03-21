@@ -21,8 +21,9 @@ data:
   batch_size: 64
   image_shape: [128, 128]
 #  directory:
-# subset_directory:
-# subset_prefix:
+#  subset_directory:
+#  subsets:
+#    train: sun_subset_train.csv
 
 training:
   epochs: 10
