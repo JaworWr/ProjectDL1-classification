@@ -19,7 +19,9 @@ def main(prefix, directory, **percentages):
         if percentages[subset] is not None:
             df = pd.read_csv(f"data/sun_{subset}.csv").set_index("id")
             df = df.sample(frac=percentages[subset], replace=False)
-            df.to_csv(path.join(directory, f"{prefix}_{subset}.csv"))
+            filename = path.join(directory, f"{prefix}_{subset}.csv")
+            df.to_csv(filename)
+            print(f"Saved file {filename} with {len(df)} samples.")
 
 
 if __name__ == '__main__':
