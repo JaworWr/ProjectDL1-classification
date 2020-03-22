@@ -35,12 +35,15 @@ def main(config_path: str):
     if "load_checkpoint" in cfg.model:
         model.load(cfg.model.load_checkpoint)
 
-    print("Training...")
     trainer = classes["trainer"](cfg, model, data_loaders)
-    trainer.train()
-
-    if "save_checkpoint" in cfg.model:
-        model.save(cfg.model.save_checkpoint)
+    try:
+        print("Training...")
+        trainer.train()
+    except KeyboardInterrupt:
+        print("Interrupted by user.")
+    finally:
+        if "save_checkpoint" in cfg.model:
+            model.save(cfg.model.save_checkpoint)
 
 
 if __name__ == '__main__':
