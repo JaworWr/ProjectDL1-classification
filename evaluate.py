@@ -34,11 +34,10 @@ def main(config_path: str):
     print("Evaluating...")
     result = model.evaluate(
         data_loader,
-        workers=cfg.training.get("workers", 1),
-        use_multiprocessing=cfg.training.get("use_multiprocessing", False)
+        workers=cfg.trainer.get("workers", 1),
     )
-    for metric, x in zip(["loss"] + cfg.training.metrics, result):
-        print(f"{metric}:\t {x}")
+    for metric, x in zip(["loss"] + cfg.model.metrics, result):
+        print(f"{metric}: {x}")
 
 
 if __name__ == '__main__':

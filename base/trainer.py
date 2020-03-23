@@ -29,7 +29,6 @@ class BaseTrainer:
             self.data["train"],
             validation_data=self.data["valid"],
             callbacks=self.callbacks,
-            epochs=self.config.training.epochs,
-            workers=self.config.training.get("workers", 1),
-            use_multiprocessing=self.config.training.get("use_multiprocessing", False)
+            epochs=self.config.trainer.epochs,
+            workers=self.config.trainer.get("workers", 1),
         )

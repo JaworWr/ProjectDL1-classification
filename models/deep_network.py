@@ -15,7 +15,7 @@ class DeepModel(BaseModel):
         self.model.add(layers.Dense(397, activation="softmax"))
 
         self.model.compile(
-            optimizer=optimizers.Adam(learning_rate=float(self.config.training.learning_rate)),
+            optimizer=optimizers.Adam(learning_rate=float(self.config.model.learning_rate)),
             loss="categorical_crossentropy",
-            metrics=self.config.training.metrics,
+            metrics=self.config.model.metrics,
         )
