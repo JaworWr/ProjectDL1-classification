@@ -24,6 +24,9 @@ class BaseModel:
     def build_model(self):
         raise NotImplementedError
 
+    def summary(self):
+        return self.model.summary()
+
     def fit(self, *args, **kwargs):
         if self.model is None:
             raise RuntimeError("You have to build the model before training it.")

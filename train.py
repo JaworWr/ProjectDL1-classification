@@ -32,6 +32,8 @@ def main(config_path: str):
     model = classes["model"](cfg)
     model.build_model()
 
+    print(model.summary())
+
     if "load_checkpoint" in cfg.model:
         model.load(cfg.model.load_checkpoint)
 
@@ -40,7 +42,7 @@ def main(config_path: str):
         print("Training...")
         trainer.train()
     except KeyboardInterrupt:
-        print("Interrupted by user.")
+        print("\nInterrupted by user.")
     finally:
         if "save_checkpoint" in cfg.model:
             model.save(cfg.model.save_checkpoint)
