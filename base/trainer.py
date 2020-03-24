@@ -11,10 +11,10 @@ class BaseTrainer:
 
         self.callbacks = []
 
-        if config.training.get("tensorboard_enabled", False):
-            experiment_name = config.training.get("experiment_name",
+        if config.trainer.get("tensorboard_enabled", False):
+            experiment_name = config.trainer.get("experiment_name",
                                                   datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
-            directory = config.training.get("log_directory", "experiments/logs")
+            directory = config.trainer.get("log_directory", "experiments/logs")
             self._init_tensorboard_callback(experiment_name, directory)
 
     def init_callbacks(self):

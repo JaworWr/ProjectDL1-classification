@@ -14,7 +14,7 @@ trainer:
   module_name: trainers.reduce_lr_on_plateau
   class_name: ReduceLROnPlateauTrainer
   epochs: 10
-  tensorboard_enabled: false
+  tensorboard_enabled: true
   workers: 2
   reduce_lr_on_plateau:
     patience: 3
@@ -23,8 +23,8 @@ trainer:
     monitor: val_loss
 
 devices:
-  memory_growth: True
-  log_device_placement: False
+  memory_growth: true
+  log_device_placement: false
 
 data:
   # augmentation:
