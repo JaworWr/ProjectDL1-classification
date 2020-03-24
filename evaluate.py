@@ -3,18 +3,33 @@ import argparse
 
 
 def get_args():
-    parser = argparse.ArgumentParser(description="Run model evaluation.")
+    parser = argparse.ArgumentParser(description="Evaluate a model.")
     parser.add_argument(
+        "-c", "--config",
         dest="config_path",
         type=str,
-        help="Path to the configuration file"
+        help="Path to the configuration file",
+        required=True
+    )
+    parser.add_argument(
+        "-l", "--load-checkpoint",
+        dest="load_checkpoint",
+        default=None,
+        type=str,
+        help="Name of the checkpoint to load. Overwrites model.load_checkpoint in configuration file"
     )
     args = parser.parse_args()
-    return vars(args)
+    return args
 
 
-def main(config_path: str):
-    cfg = config.get_config(config_path)
+def process_config(args, cfg):
+    if args.load_checkpoint is not None:
+        cfg.model.load_checkpoint = args.load_checkpoint
+
+
+def main(args):
+    cfg = config.get_config(args.config_path)
+    process_config(args, cfg)
     data.process_config(cfg)
 
     devices.device_setup(cfg)
@@ -42,4 +57,4 @@ def main(config_path: str):
 
 if __name__ == '__main__':
     args = get_args()
-    main(**args)
+    main(args)
