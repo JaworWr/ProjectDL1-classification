@@ -10,18 +10,20 @@ class BaseTrainer:
         self.data = data
 
         self.callbacks = []
+        self.log_dir = None
 
         if config.trainer.get("tensorboard_enabled", False):
             experiment_name = config.trainer.get("experiment_name",
                                                   datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
             directory = config.trainer.get("log_directory", "experiments/logs")
-            self._init_tensorboard_callback(experiment_name, directory)
+            self.log_dir = os.path.join(directory, experiment_name)
+            self._init_tensorboard_callback()
 
     def init_callbacks(self):
-        pass
+        raise NotImplementedError
 
-    def _init_tensorboard_callback(self, experiment_name: str, directory: str):
-        tensorboard_callback = callbacks.TensorBoard(log_dir=os.path.join(directory, experiment_name))
+    def _init_tensorboard_callback(self):
+        tensorboard_callback = callbacks.TensorBoard(log_dir=self.log_dir)
         self.callbacks.append(tensorboard_callback)
 
     def train(self):
