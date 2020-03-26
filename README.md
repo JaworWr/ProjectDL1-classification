@@ -36,7 +36,9 @@ The following architectures were considered so far:
 1. DeepModel: a deep neural network with adjustable layer output sizes
 * Convolutional neural networks:
 1. SimpleConvModel: a scaled-down version of the VGG architecture
-##Results
+
+## Results
+
 | Model | Hyperparameters | Test accuracy |
 |------------|---------------|----------|
 | DeepModel, hidden layers: 1024, 1024 | learning rate: 0.001 | | 
