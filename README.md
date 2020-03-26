@@ -29,3 +29,16 @@ scripts/download.sh [location]
 ```
 
 Location can be omitted, in which case data will be extracted to the "data" directory
+
+## Models
+The following architectures were considered so far:
+* Deep neural networks:
+1. DeepModel: a deep neural network with adjustable layer output sizes
+* Convolutional neural networks:
+1. SimpleConvModel: a scaled-down version of the VGG architecture
+##Results
+| Model | Hyperparameters | Test accuracy |
+|------------|---------------|----------|
+| DeepModel, hidden layers: 1024, 1024 | learning rate: 0.001 | | 
+| SimpleConvModel | learning rate: 0.001, no l2 regularization | |
+| SimpleConvModel | learning rate: 0.001, l2 regularization: 0.001 |
