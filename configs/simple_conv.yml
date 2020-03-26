@@ -1,0 +1,38 @@
+model:
+  module_name: models.simple_conv
+  class_name: SimpleConvModel
+  dropout: 0.5
+  conv_dropout: 0.2
+  learning_rate: 1e-3
+  conv_wd: 0
+  fc_wd: 0
+  metrics:
+    - accuracy
+
+trainer:
+  module_name: trainers.reduce_lr_on_plateau
+  class_name: ReduceLROnPlateauTrainer
+  epochs: 15
+  tensorboard_enabled: true
+  workers: 2
+  reduce_lr_on_plateau:
+    patience: 3
+    factor: 0.1
+    min_delta: 0.001
+    monitor: val_loss
+  model_checkpoint:
+    filepath: "model_weights/simple_conv/simple_conv_lr_reducing_relearn"
+    save_best_only: true
+    verbose: 1
+
+devices:
+  memory_growth: true
+  log_device_placement: false
+
+data:
+  # augmentation:
+  batch_size: 32
+  image_shape: [128, 128]
+#  directory:
+#  subset_directory:
+#  subsets:
