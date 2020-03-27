@@ -22,7 +22,7 @@ def get_train_valid_loaders(config):
         ["train", "valid"],
         train_gen,
         ImageDataGenerator(),
-        config.data.get("directory", path.join(DATA_ROOT, "SUN397")),
+        config.data.get("directory", DATA_ROOT),
         config.data.image_shape,
         config.data.batch_size,
         config.data.get("subset_directory", DATA_ROOT),
@@ -36,7 +36,7 @@ def get_test_loader(config):
         ["test"],
         None,
         ImageDataGenerator(),
-        config.data.get("directory", path.join(DATA_ROOT, "SUN397")),
+        config.data.get("directory", DATA_ROOT),
         config.data.image_shape,
         config.data.batch_size,
         config.data.get("subset_directory", DATA_ROOT),
@@ -69,6 +69,8 @@ def _get_data_loaders(
     loaders = {}
     if test_gen is None:
         test_gen = ImageDataGenerator()
+
+    directory = path.join(directory, "SUN397")
 
     for subset in subsets:
         df = pd.read_csv(path.join(subset_dir, subset_file_names[subset])).set_index("id")
