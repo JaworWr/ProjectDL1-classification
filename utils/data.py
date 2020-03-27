@@ -26,7 +26,8 @@ def get_train_valid_loaders(config):
         config.data.image_shape,
         config.data.batch_size,
         config.data.get("subset_directory", DATA_ROOT),
-        _get_subset_names(config, ["train", "valid"])
+        _get_subset_names(config, ["train", "valid"]),
+        config.data.get("shuffle", True)
     )
 
 
@@ -62,7 +63,8 @@ def _get_data_loaders(
         image_shape: Tuple[int, int],
         batch_size: int,
         subset_dir: str,
-        subset_file_names: Dict[str, str]
+        subset_file_names: Dict[str, str],
+        shuffle: bool = True
     ):
     loaders = {}
     if test_gen is None:
@@ -78,7 +80,7 @@ def _get_data_loaders(
             y_col="label",
             target_size=image_shape,
             batch_size=batch_size,
-            shuffle=(subset == "train")
+            shuffle=(shuffle and subset == "train")
         )
 
     if not all(loaders.values()):
