@@ -9,5 +9,7 @@ data/**/*.jpg
 experiments
 # jupyter notebooks
 *.ipynb
+# except for the final report
+!Raport.ipynb
 # model parameters
 model_weights
