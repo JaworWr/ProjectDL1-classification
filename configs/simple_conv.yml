@@ -3,9 +3,11 @@ model:
   class_name: SimpleConvModel
   dropout: 0.5
   conv_dropout: 0.2
-  learning_rate: 1e-3
+  learning_rate: 1.0e-3
   conv_wd: 0
   fc_wd: 0
+  hidden_dims:
+    - 1024
   metrics:
     - accuracy
 
@@ -14,7 +16,7 @@ trainer:
   class_name: ReduceLROnPlateauTrainer
   epochs: 15
   tensorboard_enabled: true
-  workers: 2
+  workers: 3
   reduce_lr_on_plateau:
     patience: 3
     factor: 0.1
@@ -33,6 +35,7 @@ data:
   # augmentation:
   batch_size: 32
   image_shape: [128, 128]
-#  directory:
 #  subset_directory:
-#  subsets:
+  subsets:
+    train: sun_half_train.csv
+#    valid: sun_half_valid.csv

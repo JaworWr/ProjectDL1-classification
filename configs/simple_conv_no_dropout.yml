@@ -1,11 +1,11 @@
 model:
   module_name: models.simple_conv
   class_name: SimpleConvModel
-  dropout: 0.5
-  conv_dropout: 0.2
+  dropout: 0
+  conv_dropout: 0
   learning_rate: 1.0e-3
-  conv_wd: 1.0e-3
-  fc_wd: 1.0e-3
+  conv_wd: 0
+  fc_wd: 0
   hidden_dims:
     - 1024
   metrics:
@@ -23,7 +23,7 @@ trainer:
     min_delta: 0.001
     monitor: val_loss
   model_checkpoint:
-    filepath: "model_weights/simple_conv/simple_conv_lr_reducing_wd_relearn2"
+    filepath: "model_weights/simple_conv/simple_conv_no_dropout"
     save_best_only: true
     verbose: 1
 

@@ -14,16 +14,17 @@ model:
 trainer:
   module_name: trainers.reduce_lr_on_plateau
   class_name: ReduceLROnPlateauTrainer
-  epochs: 20
+  epochs: 10
   tensorboard_enabled: true
-  workers: 3
+  workers: 2
+  experiment_name: conv_wd_full2
   reduce_lr_on_plateau:
     patience: 3
     factor: 0.1
     min_delta: 0.001
     monitor: val_loss
   model_checkpoint:
-    filepath: "model_weights/simple_conv/simple_conv_lr_reducing_wd_relearn2"
+    filepath: "model_weights/simple_conv/simple_conv_lr_reducing_wd_full3"
     save_best_only: true
     verbose: 1
 
@@ -36,6 +37,6 @@ data:
   batch_size: 32
   image_shape: [128, 128]
 #  subset_directory:
-  subsets:
-    train: sun_half_train.csv
+#  subsets:
+#    train: sun_half_train.csv
 #    valid: sun_half_valid.csv

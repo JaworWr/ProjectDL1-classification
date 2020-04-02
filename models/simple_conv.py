@@ -23,7 +23,7 @@ class SimpleConvModel(BaseModel):
 
         self.model.add(layers.Flatten())
 
-        for d in [1024]:
+        for d in self.config.model.hidden_dims:
             self.model.add(layers.Dense(d, activation="relu",
                                         kernel_regularizer=regularizers.l2(self.config.model.fc_wd)))
             if "dropout" in self.config.model:
