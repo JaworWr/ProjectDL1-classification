@@ -1,4 +1,5 @@
 from utils import config, data, factory, devices
+import tensorflow as tf
 import argparse
 
 
@@ -18,6 +19,12 @@ def get_args():
         type=str,
         help="Name of the checkpoint to load. Overwrites model.load_checkpoint in configuration file"
     )
+    parser.add_argument(
+        "--cpu",
+        dest="cpu",
+        action="store_true",
+        help="Use CPU regardless of GPU availability"
+    )
     args = parser.parse_args()
     return args
 
@@ -27,13 +34,7 @@ def process_config(args, cfg):
         cfg.model.load_checkpoint = args.load_checkpoint
 
 
-def main(args):
-    cfg = config.get_config(args.config_path)
-    process_config(args, cfg)
-    data.process_config(cfg)
-
-    devices.device_setup(cfg)
-
+def evaluate(cfg):
     print("Loading data...")
     data_loader = data.get_test_loader(cfg)
 
@@ -44,6 +45,9 @@ def main(args):
     print("Building model...")
     model = model_class(cfg)
     model.build_model()
+    if not cfg.model.load_checkpoint:
+        print("No model checkpoint specified")
+        exit(0)
     model.load(cfg.model.load_checkpoint)
 
     print("Evaluating...")
@@ -53,6 +57,20 @@ def main(args):
     )
     for metric, x in zip(["loss"] + cfg.model.metrics, result):
         print(f"{metric}: {x}")
+
+
+def main(args):
+    cfg = config.get_config(args.config_path)
+    process_config(args, cfg)
+    data.process_config(cfg)
+
+    if args.cpu:
+        print("Evaluating using CPU")
+        with tf.device("CPU"):
+            evaluate(cfg)
+    else:
+        devices.device_setup(cfg)
+        evaluate(cfg)
 
 
 if __name__ == '__main__':
