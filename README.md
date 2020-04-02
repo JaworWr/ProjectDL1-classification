@@ -31,9 +31,9 @@ scripts/download.sh [location]
 Location can be omitted, in which case data will be extracted to the "data" directory
 
 ## Models
-The project considered both simple linear models and convolutional architectures inspired by VGG16. No pretrained models were used. For the details look at the Python files in the `models` directory.
+The project considered both multi layer perceptrons and small convolutional architectures. No pretrained models were used.
 
 ## Training
-All models werer trained using the standard Adam optimizer. Training parameters were picked separately for each model. Experiments were performed without a fixed learning rate schedule, instead using the 'reduce on plateau' approach.
+All models were trained using the standard Adam optimizer. Training parameters were picked separately for each model. Experiments were performed without a fixed learning rate schedule, instead using the 'reduce on plateau' approach.
 
 
