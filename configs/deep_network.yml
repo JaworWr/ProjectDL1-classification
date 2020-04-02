@@ -28,5 +28,6 @@ data:
   image_shape: [128, 128]
 #  directory:
 #  subset_directory:
-#  subsets:
-#    train: sun_subset_train.csv
+  subsets:
+    train: sun_half_train.csv
+    valid: sun_half_valid.csv
