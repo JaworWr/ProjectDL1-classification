@@ -1,0 +1,58 @@
+# parameters used by the model class
+model:
+  # module and class names
+  module_name: models.example
+  class_name: ExampleModel
+  # saving and loading location. These can also be specified as command-lien arguments
+#  save_checkpoint:
+#  load_checkpoint:
+  # this section also contains model-specific parameters. Some common parameters are listed below:
+  # learning rate passed to model.compile
+  learning_rate: 1.0e-3
+  # a sequence of metrics passed as an array to model.compile
+  metrics:
+    - accuracy
+
+# parameters used by the trainer class
+trainer:
+  # module and class names
+  module_name: base.trainer
+  class_name: BaseTrainer
+
+  epochs: 10
+  # whether to log training to Tensorboard, default: true
+#  tensorboard_enabled: false
+  # directory to store Tensorboard logs, default: experiments/logs
+#  log_directory:
+  # name of a subdirectory to create for storing experiment logs, by default generated from current date and time
+#  experiment_name:
+  # number of worker processes, passed to model.fit
+#  workers:
+  # additional parameters may be used by different trainer classes
+
+# parameters specifying Tensorflow devices behavior
+devices:
+  # enables memory growth for GPUs
+  memory_growth: true
+  # enables device placement logging, default: false
+#  log_device_placement: true
+
+# parameters for the data loaders
+data:
+  batch_size: 64
+  # shape to rescale the images to, default: (256, 256)
+#  image_shape: [128, 128]
+  # location of image data, images will be searched in directory/SUN397. Default: data
+#  directory:
+  # location of subset csv files. Default: data
+#  subset_directory:
+  # whether to shuffle the training set. Default: true
+#  shuffle: false
+  # parameters passed to ImageDataGenerator, allowing for data augmentation
+#  augmentation:
+  # names of csv files defining subsets of training, validation and testing data.
+  # By default, provided files describing whole train, valid and testing subsets are used
+#  subsets:
+#    train:
+#    valid:
+#    test:
